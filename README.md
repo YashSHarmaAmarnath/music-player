@@ -18,6 +18,8 @@ Installation:
 
     Ensure you have Python installed.
     Install necessary packages using pip install -r requirements.txt.
+Installation command:
+	pip install -r requiremenets.txt
 Execution:
 
     Run the music_player.py file to launch the application.
