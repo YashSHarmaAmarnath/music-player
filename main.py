@@ -106,8 +106,12 @@ def next_():
 
     if current.next is not None:
         current = current.next
-        current_music.config(text=os.path.basename(current.path) )
-        play_()
+        #current_music.config(text=os.path.basename(current.path) )
+        #play_()
+    else:
+        current = music_list.head
+    current_music.config(text=os.path.basename(current.path))
+    play_()
 
 def previous_():
     global current
@@ -176,6 +180,22 @@ def pre_10():
         mixer.music.set_pos(new_pos)  # Set the new position
         play_time()  # Update the status bar with the new time
 
+def on_item_click(event):
+    global current
+    selected_index = listbox.curselection()
+    if selected_index:
+        index = selected_index[0]
+        selected_item = listbox.get(index)
+        # print(selected_item)
+    node = music_list.head
+    while node is not None:
+            #print(node.path)
+            if selected_item == os.path.basename(node.path):
+                # print(selected_item,':::::',os.path.basename(node.path))   
+                current = node
+                current_music.config(text=os.path.basename(current.path) )
+                play_()
+            node = node.next
 
 music_list = DoublyLinkedList()
 current = None
@@ -222,6 +242,7 @@ if __name__ == '__main__':
     listbox.configure(yscrollcommand=scrollbar.set)
     scrollbar.pack(side="right", fill="y")
     listbox.pack(side="left", fill="both", expand=True)
+    listbox.bind("<<ListboxSelect>>", on_item_click)
     # items = ["Item 1", "Item 2", "Item 3", ...]  # Replace with your list of items
     # for item in items:
     #     listbox.insert("end", item)
@@ -272,4 +293,5 @@ if __name__ == '__main__':
     root.mainloop()
 '''
 []jump to time
+[✔️]make loop
 '''
